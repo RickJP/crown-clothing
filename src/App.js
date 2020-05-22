@@ -18,8 +18,6 @@ import { selectCurrentUser } from './redux/user/user.selectors';
 import { selectCollectionsForPreview} from './redux/shop/shop.selectors';
 
 class App extends Component {
-
-
   componentDidMount () {
     const { setCurrentUser } = this.props
 

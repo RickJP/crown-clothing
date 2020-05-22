@@ -26,14 +26,38 @@ class ShopPage extends React.Component {
     const {updateCollections} = this.props;
     const collectionRef = firestore.collection('collections');
 
-    this.unsubscribeFromSnapShot = collectionRef.onSnapshot(
-      async (snapShot) => {
-        const collectionsMap = convertCollectionsSnapshotToMap(snapShot);
-        updateCollections(collectionsMap);
-        this.setState({ loading: false })
-      }
-    );
+     collectionRef.get().then(snapShot => {
+      const collectionsMap = convertCollectionsSnapshotToMap(snapShot);
+      updateCollections(collectionsMap);
+      this.setState({ loading: false })
+    });
   }
+
+//  USING FETCH API
+  // fetch('https://firestore.googleapis.com/v1/projects/crown-db-2f3ca/databases/(default)/documents/collections')
+  //     .then(res => res.json())
+  //     .then(collections => console.log(collections))
+
+  // PROMISES
+  
+  // collectionRef.get().then(snapShot => {
+  //   const collectionsMap = convertCollectionsSnapshotToMap(snapShot);
+  //   updateCollections(collectionsMap);
+  //   this.setState({ loading: false })
+  // });
+
+  // componentDidMount() {
+  //   const {updateCollections} = this.props;
+  //   const collectionRef = firestore.collection('collections');
+
+  //   this.unsubscribeFromSnapShot = collectionRef.onSnapshot(
+  //     async (snapShot) => {
+  //       const collectionsMap = convertCollectionsSnapshotToMap(snapShot);
+  //       updateCollections(collectionsMap);
+  //       this.setState({ loading: false })
+  //     }
+  //   );
+  // }
 
   render() {
     const {match} = this.props;
